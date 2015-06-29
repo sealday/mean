@@ -1,0 +1,9 @@
+<div class="form-inline">
+    <label class="control-label">
+        搜索
+        <input class="form-control" ng-model="name">
+    </label>
+    <ul class="list-group">
+        <li class="list-group-item item-listing" ng-repeat="item in list.items | filter : name">{{item}}</li>
+    </ul>
+</div>

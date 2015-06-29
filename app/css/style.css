@@ -39,3 +39,8 @@ body {
     padding-top: 0;
     padding-bottom: 0;
 }
+
+.main {
+    margin-top: 24px;
+    margin-bottom: 24px;
+}

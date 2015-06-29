@@ -1,32 +1,30 @@
 /**
  * Created by seal on 15-6-29.
  */
-var meanApp = angular.module('mean', ['ui.router', 'ngAnimate']);
+var meanApp = angular.module('mean', [
+    'ui.router',
+    'ngAnimate',
+    'home',
+    'list'
+]);
 
-meanApp.factory('itemService', function($http){
-   var instance = {};
+meanApp.config(function($stateProvider, $urlRouterProvider){
+    $urlRouterProvider.otherwise("/");
 
-    instance.items = [];
-
-    instance.refresh = function() {
-        $http.get('/items').success(function(data) {
-            console.log(data);
-           instance.items.length = 0;
-            angular.forEach(data, function(item) {
-                instance.items.push(item);
-            });
+    $stateProvider
+        .state('home', {
+            url: '/',
+            templateUrl: 'partials/home/home.html',
+            controller: 'HomeController',
+            controllerAs: 'home'
+        })
+        .state('list', {
+            url: '/list',
+            templateUrl: 'partials/list/list.html',
+            controller: 'ListController',
+            controllerAs: 'list'
         });
-    }
-
-    instance.refresh();
-
-    return instance;
 });
 
-meanApp.controller('HomeController', function(){
 
-});
 
-meanApp.controller('ListController', function(itemService){
-    this.items = itemService.items;
-});
