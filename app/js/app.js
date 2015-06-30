@@ -8,6 +8,9 @@ var meanApp = angular.module('mean', [
     'list'
 ]);
 
+/**
+ * 配置前端路由
+ */
 meanApp.config(function($stateProvider, $urlRouterProvider){
     $urlRouterProvider.otherwise("/");
 
