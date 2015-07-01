@@ -10,8 +10,8 @@ var routes = require('./routes/index');
 var app = express();
 
 
-// uncomment after placing your favicon in /app
-//app.use(favicon(__dirname + '/app/favicon.ico'));
+
+app.use(favicon(__dirname + '/client/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
