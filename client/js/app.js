@@ -17,13 +17,13 @@ meanApp.config(function($stateProvider, $urlRouterProvider){
     $stateProvider
         .state('home', {
             url: '/',
-            templateUrl: 'partials/home/home.html',
+            templateUrl: '../components/home/home.html',
             controller: 'HomeController',
             controllerAs: 'home'
         })
         .state('list', {
             url: '/list',
-            templateUrl: 'partials/list/list.html',
+            templateUrl: '../components/list/list.html',
             controller: 'ListController',
             controllerAs: 'list'
         });
