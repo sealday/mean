@@ -1,6 +1,15 @@
 var list = angular.module('list', []);
 
+<<<<<<< HEAD
 meanApp.factory('itemService', function ($http) {
+=======
+/**
+ * itemService 是一个服务,单例模式,也就是整个应用中只会存在一个实例
+ *
+ * 这一点区别于下面的ListController,后者会在每一次访问的时候重新实例化一次
+ */
+meanApp.factory('itemService', function($http){
+>>>>>>> c97d085612846fd0e82966820079c113c2c3bd8c
     var instance = {};
     instance.items = [];
     this.$http = $http;
