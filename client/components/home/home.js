@@ -1,5 +1,4 @@
-var home = angular.module('home', []);
-
-home.controller('HomeController', function(){
+angular.module('home', [])
+    .controller('HomeController', function(){
 
 });

@@ -2,6 +2,7 @@ angular.module('list', [])
     .factory('itemService', itemService)
     .controller('ListController', ListController);
 
+
 //防止混淆后注入失败
 itemService.$inject('$http');
 function itemService($http) {
