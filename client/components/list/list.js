@@ -4,7 +4,7 @@ angular.module('list', [])
 
 
 //防止混淆后注入失败
-itemService.$inject('$http');
+itemService.$inject = ['$http'];
 function itemService($http) {
     var instance = {};
 
@@ -38,7 +38,7 @@ function itemService($http) {
 }
 
 
-ListController.$inject('itemService');
+ListController.$inject = ['itemService'];
 function ListController(itemService) {
     this.items = itemService.items;
     this.refresh = itemService.refresh;

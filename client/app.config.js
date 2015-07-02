@@ -1,17 +1,18 @@
 /**
- * Created by seal on 15-6-29.
+ * Created by Yaoh on 2015/7/2.
  */
-var meanApp = angular.module('mean', [
-    'ui.router',
-    'ngAnimate',
-    'home',
-    'list'
-]);
 
-/**
- * 配置前端路由
- */
-meanApp.config(function($stateProvider, $urlRouterProvider){
+
+/*
+* 配置前端
+* ...*/
+angular
+    .module('mean')
+    .config(routerConfig);
+
+
+
+function routerConfig($urlRouterProvider,$stateProvider){
     $urlRouterProvider.otherwise("/");
 
     $stateProvider
@@ -27,7 +28,5 @@ meanApp.config(function($stateProvider, $urlRouterProvider){
             controller: 'ListController',
             controllerAs: 'list'
         });
-});
 
-
-
+}
