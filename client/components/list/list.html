@@ -4,13 +4,13 @@
         <input class="form-control" ng-model="name">
     </label>
     <button class="btn btn-default" ng-click="list.refresh()">刷新</button>
-    <div>
+    <lable class="control-label">
         <form ng-submit="list.additem(list.item)">
         添加
         <input class="form-control" ng-model="list.item">
         <button class="btn btn-default" type="submit">提交</button>
     </form>
-    </div>
+    </lable>
     <ul class="list-group">
         <li class="list-group-item item-listing" ng-repeat="item in list.items| filter: name track by $index">{{item}}</li>
     </ul>

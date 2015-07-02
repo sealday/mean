@@ -1,11 +1,20 @@
-var list = angular.module('list', []);
+angular.module('list', [])
+    .factory('itemService', itemService)
+    .controller('ListController', ListController);
 
-meanApp.factory('itemService', function ($http) {
+//防止混淆后注入失败
+itemService.$inject('$http');
+function itemService($http) {
     var instance = {};
-    instance.items = [];
-    this.$http = $http;
 
-    instance.refresh = function () {
+    instance.items = [];
+    instance.refresh = refresh;
+    instance.additem = additem;
+    instance.refresh();
+
+    return instance;
+
+    function refresh() {
         $http.get('/items').success(function (data) {
             console.log(data);
             instance.items.length = 0;
@@ -15,7 +24,7 @@ meanApp.factory('itemService', function ($http) {
         });
     }
 
-    instance.additem = function (item) {
+    function additem(item) {
         $http.post('/items', {item: item}).success(function () {
             $http.get('/items').success(function (items) {
                 instance.items.length = 0;
@@ -25,14 +34,12 @@ meanApp.factory('itemService', function ($http) {
             });
         })
     }
+}
 
-    instance.refresh();
-    return instance;
-});
 
-list.controller('ListController', function (itemService) {
+ListController.$inject('itemService');
+function ListController(itemService) {
     this.items = itemService.items;
     this.refresh = itemService.refresh;
     this.additem = itemService.additem;
-})
-
+}
