@@ -6,24 +6,92 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <div class="container">
-        <ul class="nav nav-tabs">
-            <li ui-sref-active="active"><a ui-sref="home">首页</a></li>
-            <li ui-sref-active="active"><a ui-sref="list">列表</a></li>
-        </ul>
-        <div class="main">
-            <ui-view></ui-view>
+<div class="container" ng-controller="NavModalCtrl as nav">
+    <ul class="nav nav-tabs">
+        <li ui-sref-active="active"><a role="button" ui-sref="home">首页</a></li>
+        <li ui-sref-active="active" class="btn-group" dropdown>
+            <a dropdown-toggle role="button">
+                人员
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="" ui-sref="user">添加</a></li>
+                <li><a href="" ui-sref="userlist">检索</a></li>
+                <li class="divider"></li>
+                <li><a href="">个人</a></li>
+            </ul>
+        </li>
+        <li ng-if="!nav.signService.signed" class="pull-right" ng-click="nav.Signin()"><a role="button" href="">Sign
+            in</a></li>
+        <li ng-if="!nav.signService.signed" class="pull-right" ng-click="nav.Register()"><a role="button" href="">Register</a>
+        </li>
+        <li ng-if="nav.signService.signed" class="pull-right"><a role="button" href="" ng-click="nav.signout()">Sign out</a></li>
+        <li ng-if="nav.signService.signed" class="pull-right"><a role="button" href="">{{nav.signService.name}}</a></li>
+    </ul>
+</div>
+<!-- Register modal-->
+<div>
+    <script type="text/ng-template" id="NavRegister.html">
+        <div class="modal-header">
+            <h3 class="modal-title">注册</h3>
         </div>
-    </div>
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="app.js"></script>
-    <script src="app.config.js"></script>
-    <script src="components/home/home.js"></script>
-    <script src="components/list/list.js"></script>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="control-label">用户名</label>
+                <input ng-model="re.username" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="control-label">密码</label>
+                <input ng-model="re.password" type="password" class="form-control">
+            </div>
+            <alert class="alert" ng-if="re.error" type="danger">该用户名已被占用</alert>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="re.register()">注册<sub/button>
+            <button class="btn btn-warning" ng-click="re.cancel()">取消</button>
+        </div>
+    </script>
+</div>
+<!-- Sign in modal-->
+<div>
+    <script type="text/ng-template" id="NavSignin.html">
+        <div class="modal-header">
+            <h3 class="modal-title">登录</h3>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="control-label">用户名</label>
+                <input ng-model="si.username" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="control-label">密码</label>
+                <input ng-model="si.password" type="password" class="form-control">
+            </div>
+            <alert class="alert" ng-if="si.error" type="danger">用户名或者密码错误</alert>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="si.signin()">登录</button>
+            <button class="btn btn-warning" ng-click="si.cancel()">取消</button>
+        </div>
+    </script>
+</div>
+
+<div class="container main">
+    <ui-view></ui-view>
+</div>
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="app.js"></script>
+<script src="app.config.js"></script>
+<script src="app.controller.js"></script>
+<script src="app.service.js"></script>
+<script src="components/home/home.js"></script>
+<script src="components/user/user.js"></script>
+
 </body>
 </html>

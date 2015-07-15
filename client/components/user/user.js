@@ -1,11 +1,11 @@
-angular.module('list', [])
-    .factory('itemService', itemService)
-    .controller('ListController', ListController);
+angular.module('user', [])
+    .controller('UserController', UserController)
+    .factory('userService', userService);
 
 
 //防止混淆后注入失败
-itemService.$inject = ['$http'];
-function itemService($http) {
+userService.$inject = ['$http'];
+function userService($http) {
     var instance = {};
 
     instance.items = [];
@@ -16,7 +16,7 @@ function itemService($http) {
     return instance;
 
     function refresh() {
-        $http.get('/items').success(function (data) {
+        $http.get('/users').success(function (data) {
             console.log(data);
             instance.items.length = 0;
             angular.forEach(data, function (item) {
@@ -26,8 +26,8 @@ function itemService($http) {
     }
 
     function additem(item) {
-        $http.post('/items', {item: item}).success(function () {
-            $http.get('/items').success(function (items) {
+        $http.post('/users', {item: item}).success(function () {
+            $http.get('/users').success(function (items) {
                 instance.items.length = 0;
                 angular.forEach(items, function (item) {
                     instance.items.push(item);
@@ -38,9 +38,9 @@ function itemService($http) {
 }
 
 
-ListController.$inject = ['itemService'];
-function ListController(itemService) {
-    this.items = itemService.items;
-    this.refresh = itemService.refresh;
-    this.additem = itemService.additem;
+UserController.$inject = ['userService'];
+function UserController(userService) {
+    this.items = userService.items;
+    this.refresh = userService.refresh;
+    this.additem = userService.additem;
 }

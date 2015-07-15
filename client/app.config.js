@@ -4,15 +4,14 @@
 
 
 /*
-* 配置前端
-* ...*/
+ * 配置前端
+ * ...*/
 angular
     .module('mean')
     .config(routerConfig);
 
 
-
-function routerConfig($urlRouterProvider,$stateProvider){
+function routerConfig($urlRouterProvider, $stateProvider) {
     $urlRouterProvider.otherwise("/");
 
     $stateProvider
@@ -22,11 +21,17 @@ function routerConfig($urlRouterProvider,$stateProvider){
             controller: 'HomeController',
             controllerAs: 'home'
         })
-        .state('list', {
-            url: '/list',
-            templateUrl: '/components/list/list.html',
-            controller: 'ListController',
-            controllerAs: 'list'
+        .state('user', {
+            url: '/user',
+            templateUrl: '/components/user/user.html',
+            controller: 'UserController',
+            controllerAs: 'user'
+        })
+        .state('userlist', {
+            url: '/userlist',
+            templateUrl: '/components/user/user.list.html',
+            controller: 'UserController',
+            controllerAs: 'user'
         });
 
 }

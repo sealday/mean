@@ -1,0 +1,55 @@
+<div class="form-inline">
+    <label class="control-label">
+        检索
+        <input class="form-control" ng-model="name">
+    </label>
+    <button class="btn btn-default" ng-click="user.refresh()">刷新</button>
+    <lable class="control-label">
+        <form ng-submit="user.additem(user.item)">
+            添加
+            <input class="form-control" ng-model="user.item">
+            <button class="btn btn-default" type="submit">提交</button>
+        </form>
+    </lable>
+    <ul class="list-group">
+        <li class="list-group-item item-listing" ng-repeat="item in user.items| filter: name track by $index">{{item}}</li>
+    </ul>
+</div>
+
+
+
+<!--<div ui-view>-->
+<!--<div class="form-inline">-->
+<!--<form ng-submit="user.insert()" class="insert-form">-->
+<!--<div class="form-group">-->
+<!--<label class="control-label">姓名</label>-->
+<!--<input ng-model="role.name" class="form-control">-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label class="control-label">学号</label>-->
+<!--<input ng-model="user.number" class="form-control">-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label class="control-label">密码</label>-->
+<!--<input ng-model="user.password" class="form-control">-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label class="control-label">出生日期</label>-->
+<!--<input ng-model="user.birthday" class="form-control">-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label class="control-label">角色</label>-->
+<!--<input ng-model="user.role" class="form-control">-->
+<!--</div>-->
+
+<!--<div class="btn-group">-->
+<!--<div class="btn-group">-->
+<!--<button type="reset" class="btn btn-default">重置</button>-->
+<!--</div>-->
+<!--<div class="btn-group">-->
+<!--<button type="submit" class="btn btn-default">增加</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--</form>-->
+<!--</div>-->
+<!--</div>-->

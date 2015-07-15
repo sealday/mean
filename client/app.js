@@ -4,6 +4,7 @@
 angular.module('mean', [
     'ui.router',
     'ngAnimate',
+    'ui.bootstrap',
     'home',
-    'list'
+    'user'
 ]);
