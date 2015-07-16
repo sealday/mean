@@ -27,7 +27,8 @@
             in</a></li>
         <li ng-if="!nav.signService.signed" class="pull-right" ng-click="nav.Register()"><a role="button" href="">Register</a>
         </li>
-        <li ng-if="nav.signService.signed" class="pull-right"><a role="button" href="" ng-click="nav.signout()">Sign out</a></li>
+        <li ng-if="nav.signService.signed" class="pull-right"><a role="button" href="" ng-click="nav.signout()">Sign
+            out</a></li>
         <li ng-if="nav.signService.signed" class="pull-right"><a role="button" href="">{{nav.signService.name}}</a></li>
     </ul>
 </div>
@@ -49,7 +50,7 @@
             <alert class="alert" ng-if="re.error" type="danger">该用户名已被占用</alert>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="re.register()">注册<sub/button>
+            <button class="btn btn-primary" ng-click="re.register()">注册</button>
             <button class="btn btn-warning" ng-click="re.cancel()">取消</button>
         </div>
     </script>
