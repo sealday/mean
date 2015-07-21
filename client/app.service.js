@@ -24,7 +24,7 @@ function signService($http, $q) {
         return $q(function (resolve, reject) {
             console.log('service\n' + username);
             console.log('service\n' + password);
-            $http.post('/user/signin', {username: username, password: password}).success(function () {
+            $http.post('/signin', {username: username, password: password}).success(function () {
                 service.signed = true;
                 service.name = username;
                 resolve('sign in success');
@@ -34,6 +34,7 @@ function signService($http, $q) {
         });
     }
 
+
     function signout() {
         service.signed = false;
     }
@@ -42,7 +43,7 @@ function signService($http, $q) {
         return $q(function (resolve, reject) {
             console.log('service\n' + username);
             console.log('service\n' + password);
-            $http.post('/user/register', {username: username, password: password}).success(function () {
+            $http.post('/register', {username: username, password: password}).success(function () {
                 resolve('register success');
             }).error(function () {
                 reject('register failure');

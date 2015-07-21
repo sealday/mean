@@ -11,6 +11,7 @@
 <div class="container" ng-controller="NavModalCtrl as nav">
     <ul class="nav nav-tabs">
         <li ui-sref-active="active"><a role="button" ui-sref="home">首页</a></li>
+
         <li ui-sref-active="active" class="btn-group" dropdown>
             <a dropdown-toggle role="button">
                 人员
@@ -18,9 +19,20 @@
             </a>
             <ul class="dropdown-menu">
                 <li><a href="" ui-sref="user">添加</a></li>
-                <li><a href="" ui-sref="userlist">检索</a></li>
                 <li class="divider"></li>
                 <li><a href="">个人</a></li>
+            </ul>
+        </li>
+
+        <li ui-sref-active="active" class="btn-group" dropdown>
+            <a dropdown-toggle role="button">
+                测试
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="" ui-sref="funtest">添加</a></li>
+                <li class="divider"></li>
+                <li><a href="">测试</a></li>
             </ul>
         </li>
         <li ng-if="!nav.signService.signed" class="pull-right" ng-click="nav.Signin()"><a role="button" href="">Sign
@@ -47,7 +59,7 @@
                 <label class="control-label">密码</label>
                 <input ng-model="re.password" type="password" class="form-control">
             </div>
-            <alert class="alert" ng-if="re.error" type="danger">该用户名已被占用</alert>
+            <alert class="alert" ng-if="re.error" type="danger">该用户名为空或已被占用</alert>
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" ng-click="re.register()">注册</button>
@@ -83,16 +95,18 @@
     <ui-view></ui-view>
 </div>
 
-<script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
 <script src="app.js"></script>
 <script src="app.config.js"></script>
 <script src="app.controller.js"></script>
 <script src="app.service.js"></script>
 <script src="components/home/home.js"></script>
 <script src="components/user/user.js"></script>
+<script src="components/funtest/fun.js"></script>
 
 </body>
 </html>

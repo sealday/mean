@@ -2,6 +2,11 @@ body {
     padding-top: 20px;
 }
 
+.details {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: large;
+}
+
 .container {
 
 }
@@ -31,6 +36,10 @@ body {
     opacity: 0;
     height: 0;
     overflow: hidden;
+}
+
+.item-listing {
+
 }
 
 .item-listing.ng-move.ng-move-active,

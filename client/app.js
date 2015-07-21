@@ -6,5 +6,6 @@ angular.module('mean', [
     'ngAnimate',
     'ui.bootstrap',
     'home',
-    'user'
+    'user',
+    'funtest'
 ]);

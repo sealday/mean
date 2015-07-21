@@ -1,0 +1,66 @@
+<div ui-view>
+    <div class="form-inline">
+        <form ng-submit="user.addUser()">
+            <div class="form-group">
+                <label class="control-label">姓名</label>
+                <input ng-model="user.name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label class="control-label">学号</label>
+                <input ng-model="user.username" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label class="control-label">密码</label>
+                <input ng-model="user.password" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="control-label">角色</label>
+                <select ng-model="user.role" ng-init="user.role = 'student'" class="form-control">
+                    <option value="student">学生</option>
+                    <option value="teacher">教师</option>
+                    <option value="admin">管理员</option>
+                </select>
+            </div>
+            <div class=" pull-right">
+                <div class="btn-group" role="group">
+                    <button type="reset" class="btn btn-default">重置</button>
+                    <button type="submit" class="btn btn-info">增加</button>
+                </div>
+            </div>
+        </form>
+        <alert class="alert" ng-if="user.error" type="danger">出现错误</alert>
+    </div>
+    <p class="divider"></p>
+
+    <div>
+        <p><span class="glyphicon glyphicon-search"></span>检索</p>
+        <input class="form-control" ng-model="name">
+    </div>
+    <div class="table-responsive panel panel-default">
+        <table class="table table-hover ">
+            <thead>
+            <tr>
+                <th>姓名</th>
+                <th>账号</th>
+                <th>密码</th>
+                <th>角色</th>
+                <th>删除</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="item-listing" ng-click="user.goDetails(auser._id)"
+                ng-repeat="auser in user.users| filter: name track by $index">
+                <td role="button">{{auser.name}}</td>
+                <td role="button">{{auser.username}}</td>
+                <td role="button">{{auser.password}}</td>
+                <td role="button">{{auser.role}}</td>
+                <td>
+                    <a href="" ng-click="user.removeUser(auser._id)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -27,11 +27,17 @@ function routerConfig($urlRouterProvider, $stateProvider) {
             controller: 'UserController',
             controllerAs: 'user'
         })
-        .state('userlist', {
-            url: '/userlist',
-            templateUrl: '/components/user/user.list.html',
-            controller: 'UserController',
+        .state('user.details', {
+            url: '/:id',
+            templateUrl: '/components/user/user.details.html',
+            controller: 'UserDetailsController',
             controllerAs: 'user'
+        })
+        .state('funtest', {
+            url: '/funtest',
+            templateUrl: '/components/funtest/fun.html',
+            controller: 'FunController',
+            controllerAs: 'fun'
         });
 
 }
