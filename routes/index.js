@@ -24,6 +24,16 @@ MongoClient.connect(url, function (err, db) {
             });
         }
     });
+    users.indexExists('access_tokenIndex', function (err, result) {
+        if (!result) {
+            users.createIndex({access_token: 1}, {unique: true, name: "access_tokenIndex"}, function (err) {
+                //if (err) throw err;
+                if (err) {
+                    console.log(err);
+                }
+            });
+        }
+    });
 });
 
 /*register & sign in/out
@@ -32,7 +42,11 @@ router.post('/register', function (req, res, next) {
     //Register
     var registerUser = function (db, callback) {
         var users = db.collection('user');
-        users.insertOne({username: req.body.username, password: req.body.password}, function (err, result) {
+        users.insertOne({
+            username: req.body.username,
+            password: req.body.password,
+            access_token: ''
+        }, function (err, result) {
             if (!err) {
                 console.log("register success");
                 callback(result);
@@ -61,26 +75,38 @@ router.post('/signin', function (req, res, next) {
     //Sign
     var signUser = function (db, callback) {
         var user = db.collection('user');
-        user.findOne({username: req.body.username}, function (err, result) {
-            if (result.password == req.body.password) {
-                console.log('sign in success');
-                callback(result);
-            }
-            else {
-                console.log('sign in failure');
-                res.status(401).end();
-                db.close();
-
-            }
-
-        });
+        var sha1sum = crypto.createHash('sha1');
+        sha1sum.update(req.body.username + req.body.password + new Date().getTime());
+        var accessToken = sha1sum.digest('hex');
+        user.findOneAndUpdate(
+            {
+                username: req.body.username,
+                password: req.body.username
+            },
+            {
+                $set: {
+                    access_token: accessToken
+                }
+            },
+            function (err, result) {
+                if (!err) {
+                    console.log('sign in success');
+                    callback(result);
+                }
+                else {
+                    console.log('sign in failure');
+                    res.status(401).end();
+                    db.close();
+                }
+            });
     };
 
     MongoClient.connect(url, function (err, db) {
         console.log("Connected correctly to server");
-        signUser(db, function () {
+        signUser(db, function (result) {
+            console.dir(result);
             res.status(200);
-            res.json({msg: 'success'});
+            res.json(result);
             db.close();
         });
     });
@@ -217,7 +243,8 @@ router.post('/api/users', function (req, res, next) {
             name: req.body.name,
             username: req.body.username,
             password: req.body.password,
-            role: req.body.role
+            role: req.body.role,
+            access_token: ''
         }, function (err, result) {
             if (!err) {
                 console.log("insert success");
