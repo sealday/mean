@@ -13,21 +13,40 @@ function UserController($http, $state) {
     /* jshint validthis: true */
     var user = this;
     user.user = {};
+    user.suser = {};
     user.users = [];
     user.title = 'UserController';
     user.error = false;
 
     user.addUser = addUser;
     user.getAllUsers = getAllUsers;
+    user.searchUsers = searchUsers;
     user.removeUser = removeUser;
     user.goDetails = goDetails;
 
     getAllUsers();
 
-    ////////////////
-
+    ///////////////
     function getAllUsers() {
         $http.get('/api/users').success(function (users) {
+            user.users = users;
+            console.dir(users);
+        }).error(function () {
+            console.log('get users error')
+        })
+    }
+
+    function searchUsers() {
+        suser = {
+            name: user.sname,
+            username: user.susername,
+            password: user.spassword,
+            role: user.srole
+        };
+        console.log(suser);
+        $http.get('/api/users', {
+            params: suser
+        }).success(function (users) {
             user.users = users;
             console.dir(users);
         }).error(function () {
@@ -42,7 +61,11 @@ function UserController($http, $state) {
             password: user.password,
             role: user.role
         }).success(function () {
-            console.log('add user success,');
+            console.log('add user success');
+            user.name = '';
+            user.username = '';
+            user.password = '';
+            user.role = 'student';
             getAllUsers();
         }).error(function () {
             user.error = true;

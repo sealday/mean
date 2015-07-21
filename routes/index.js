@@ -143,9 +143,15 @@ router.post('/words', function (req, res, next) {
 router.get('/api/users', function (req, res, next) {
     var getAllUser = function (db, callback) {
         var users = db.collection('user');
-        users.find({}).toArray(function (err, result) {
+        console.dir(req.query);
+        users.find({
+            $and: [{name: new RegExp(req.query.name)},
+                {username: new RegExp(req.query.username)},
+                {password: new RegExp(req.query.password)},
+                {role: new RegExp(req.query.role)}]
+        }).toArray(function (err, result) {
                 if (!err) {
-                    console.dir(result);
+                    //console.dir(result);
                     console.log("find success");
                     callback(result);
                 }

@@ -34,8 +34,48 @@
 
     <div>
         <p><span class="glyphicon glyphicon-search"></span>检索</p>
-        <input class="form-control" ng-model="name">
+
+        <p class="divider"></p>
+
+        <div class="form-inline">
+            <form>
+                <div class="form-group">
+                    <label class="control-label">姓名</label>
+                    <input ng-model="user.sname" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">学号</label>
+                    <input ng-model="user.susername" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">密码</label>
+                    <input ng-model="user.spassword" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">角色</label>
+                    <select ng-model="user.srole" ng-init="user.srole = 'student'" class="form-control">
+                        <option value="student">学生</option>
+                        <option value="teacher">教师</option>
+                        <option value="admin">管理员</option>
+                    </select>
+                </div>
+                <div class=" pull-right">
+                    <div class="btn-group" role="group">
+                        <button type="reset" class="btn btn-default">重置</button>
+                        <button ng-click="user.searchUsers()" class="btn btn-info">搜索</button>
+                    </div>
+                </div>
+            </form>
+            <alert class="alert" ng-if="user.error" type="danger">出现错误</alert>
+        </div>
+
+        <p class="divider"></p>
+
+        <input class="form-control" ng-model="search" placeholder="输入信息检索">
     </div>
+
+    <p class="divider"></p>
+
     <div class="table-responsive panel panel-default">
         <table class="table table-hover ">
             <thead>
@@ -49,7 +89,7 @@
             </thead>
             <tbody>
             <tr class="item-listing" ng-click="user.goDetails(auser._id)"
-                ng-repeat="auser in user.users| filter: name track by $index">
+                ng-repeat="auser in user.users| filter: search track by $index">
                 <td role="button">{{auser.name}}</td>
                 <td role="button">{{auser.username}}</td>
                 <td role="button">{{auser.password}}</td>
