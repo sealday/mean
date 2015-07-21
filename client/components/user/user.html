@@ -88,12 +88,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="item-listing" ng-click="user.goDetails(auser._id)"
+            <tr class="item-listing"
                 ng-repeat="auser in user.users| filter: search track by $index">
-                <td role="button">{{auser.name}}</td>
-                <td role="button">{{auser.username}}</td>
-                <td role="button">{{auser.password}}</td>
-                <td role="button">{{auser.role}}</td>
+                <td role="button" ng-click="user.goDetails(auser._id)">{{auser.name}}</td>
+                <td role="button" ng-click="user.goDetails(auser._id)">{{auser.username}}</td>
+                <td role="button" ng-click="user.goDetails(auser._id)">{{auser.password}}</td>
+                <td role="button" ng-click="user.goDetails(auser._id)">{{auser.role}}</td>
                 <td>
                     <a href="" ng-click="user.removeUser(auser._id)">
                         <span class="glyphicon glyphicon-trash"></span>
