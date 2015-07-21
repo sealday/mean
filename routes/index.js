@@ -1,42 +1,50 @@
 var express = require('express');
 var router = express.Router();
-
 var MongoClient = require('mongodb').MongoClient;
 var mongodb = require('mongodb');
+var crypto = require('crypto');
+
 // Connection URL
 var url = 'mongodb://localhost:27017/test';
 var ObjectID = mongodb.ObjectId;
+
+
 //===================================================================================================
+/*
+ * init mongodb*/
+MongoClient.connect(url, function (err, db) {
+    var users = db.collection('user');
+    users.indexExists('usernameIndex', function (err, result) {
+        if (!result) {
+            users.createIndex({username: 1}, {unique: true, name: "usernameIndex"}, function (err) {
+                //if (err) throw err;
+                if (err) {
+                    console.log(err);
+                }
+            });
+        }
+    });
+});
+
 /*register & sign in/out
  */
 router.post('/register', function (req, res, next) {
     //Register
     var registerUser = function (db, callback) {
         var users = db.collection('user');
-        users.findOne({username: req.body.username}, function (err, result) {
-            if (result != null | req.body.username == null) {
-                console.dir(result);
+        users.insertOne({username: req.body.username, password: req.body.password}, function (err, result) {
+            if (!err) {
+                console.log("register success");
+                callback(result);
+            }
+            else {
                 console.log("register failure");
                 res.status(409).end();
                 db.close();
             }
-            else {
-                users.insertOne({username: req.body.username, password: req.body.password}, function (err, result) {
-                    if (!err) {
-                        console.log("register success");
-                        callback(result);
-                    }
-                    else {
-                        console.log("register failure");
-                        res.status(409).end();
-                        db.close();
-                    }
 
-                })
-            }
-
-        })
-    }
+        });
+    };
 
     MongoClient.connect(url, function (err, db) {
         console.log("Connected correctly to server");
@@ -46,9 +54,8 @@ router.post('/register', function (req, res, next) {
                 db.close();
             }
         )
-    })
+    });
 });
-
 
 router.post('/signin', function (req, res, next) {
     //Sign
@@ -66,7 +73,7 @@ router.post('/signin', function (req, res, next) {
 
             }
 
-        })
+        });
     };
 
     MongoClient.connect(url, function (err, db) {
@@ -75,9 +82,8 @@ router.post('/signin', function (req, res, next) {
             res.status(200);
             res.json({msg: 'success'});
             db.close();
-        })
-
-    })
+        });
+    });
 });
 
 //=====================================================================================================
@@ -99,7 +105,7 @@ router.get('/words', function (req, res, next) {
             }
 
         });
-    }
+    };
     // Use connect method to connect to the Server
     MongoClient.connect(url, function (err, db) {
         console.log("Connected correctly to server");
@@ -107,7 +113,7 @@ router.get('/words', function (req, res, next) {
             res.status(200);
             res.json(result);
             db.close();
-        })
+        });
     });
 });
 
@@ -127,7 +133,7 @@ router.post('/words', function (req, res, next) {
                 db.close();
             }
         });
-    }
+    };
     // Use connect method to connect to the Server
     MongoClient.connect(url, function (err, db) {
         console.log("Connected correctly to server");
@@ -135,7 +141,7 @@ router.post('/words', function (req, res, next) {
             res.status(200);
             res.json({msg: 'success'});
             db.close();
-        })
+        });
     });
 });
 //====================================================================================================
@@ -161,8 +167,8 @@ router.get('/api/users', function (req, res, next) {
                     db.close();
                 }
             }
-        )
-    }
+        );
+    };
     // Use connect method to connect to the Server
     MongoClient.connect(url, function (err, db) {
         console.log("Connected correctly to server");
@@ -170,7 +176,7 @@ router.get('/api/users', function (req, res, next) {
             res.status(200);
             res.json(result);
             db.close();
-        })
+        });
     });
 });
 
@@ -190,8 +196,8 @@ router.get('/api/users/:id', function (req, res, next) {
                     db.close();
                 }
             }
-        )
-    }
+        );
+    };
     // Use connect method to connect to the Server
     MongoClient.connect(url, function (err, db) {
         console.log("Connected correctly to server");
@@ -199,7 +205,7 @@ router.get('/api/users/:id', function (req, res, next) {
             res.status(200);
             res.json(result);
             db.close();
-        })
+        });
     });
 });
 
@@ -223,8 +229,8 @@ router.post('/api/users', function (req, res, next) {
                 db.close();
             }
 
-        })
-    }
+        });
+    };
     // Use connect method to connect to the Server
     MongoClient.connect(url, function (err, db) {
         console.log("Connected correctly to server");
@@ -232,7 +238,7 @@ router.post('/api/users', function (req, res, next) {
             res.status(200);
             res.json({msg: 'success'});
             db.close();
-        })
+        });
     });
 })
 
@@ -264,7 +270,7 @@ router.post('/api/users/:id', function (req, res, next) {
                 }
             }
         );
-    }
+    };
 // Use connect method to connect to the Server
     MongoClient.connect(url, function (err, db) {
         console.log("Connected correctly to server");
@@ -272,9 +278,9 @@ router.post('/api/users/:id', function (req, res, next) {
             res.status(200);
             res.json({msg: 'success'});
             db.close();
-        })
+        });
     });
-})
+});
 
 router.delete('/api/users/:id', function (req, res, next) {
     var deleteOneUser = function (db, callback) {
@@ -290,7 +296,7 @@ router.delete('/api/users/:id', function (req, res, next) {
                 db.close();
             }
         });
-    }
+    };
     // Use connect method to connect to the Server
     MongoClient.connect(url, function (err, db) {
         console.log("Connected correctly to server");
@@ -298,10 +304,9 @@ router.delete('/api/users/:id', function (req, res, next) {
             res.status(200);
             res.json({msg: 'success'});
             db.close();
-        })
+        });
     });
-
-})
+});
 //===================================================================================================
 /*subject*/
 

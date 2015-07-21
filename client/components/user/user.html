@@ -28,7 +28,9 @@
                 </div>
             </div>
         </form>
-        <alert class="alert" ng-if="user.error" type="danger">出现错误</alert>
+        <p class="divider"></p>
+        <alert type="danger" ng-if="user.error" close="user.error=!user.error"><strong>Wrong!</strong>出现错误！
+        </alert>
     </div>
     <p class="divider"></p>
 
@@ -66,7 +68,6 @@
                     </div>
                 </div>
             </form>
-            <alert class="alert" ng-if="user.error" type="danger">出现错误</alert>
         </div>
 
         <p class="divider"></p>
