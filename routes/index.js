@@ -84,7 +84,7 @@ router.post('/signin', function (req, res, next) {
         user.findOneAndUpdate(
             {
                 username: req.body.username,
-                password: req.body.username
+                password: req.body.password
             },
             {
                 $set: {
