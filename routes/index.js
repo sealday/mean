@@ -42,10 +42,13 @@ router.post('/register', function (req, res, next) {
     //Register
     var registerUser = function (db, callback) {
         var users = db.collection('user');
+        var sha1sum = crypto.createHash('sha1');
+        sha1sum.update(req.body.username + req.body.password + new Date().getTime());
+        var accessToken = sha1sum.digest('hex');
         users.insertOne({
             username: req.body.username,
             password: req.body.password,
-            access_token: ''
+            access_token: accessToken
         }, function (err, result) {
             if (!err) {
                 console.log("register success");

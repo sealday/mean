@@ -7,49 +7,47 @@
     </div>
     <p class="divider"></p>
 
-    <div>
-        <div ng-if="!user.editing" class="details form-inline">
+    <div ng-if="!user.editing" class="details form-inline">
+        <P>姓名：{{user.user.name}}</P>
 
-            <P>姓名：{{user.user.name}}
+        <p>学号/账号：{{user.user.username}}</p>
 
-                学号/账号：{{user.user.username}}
+        <p>密码：{{user.user.password}}</p>
 
-                密码：{{user.user.password}}
-
-                角色：{{user.user.role}}</p>
-        </div>
-        <div ng-if="user.editing">
-            <div class="form-inline">
-                <form>
-                    <div class="form-group">
-                        <label class="control-label">姓名</label>
-                        <input ng-model="user.user.name" class="form-control">
+        <p>角色：{{user.user.role}}</p>
+    </div>
+    <div ng-if="user.editing">
+        <div class="form-inline">
+            <form>
+                <div class="form-group">
+                    <label class="control-label">姓名</label>
+                    <input ng-model="user.user.name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">学号</label>
+                    <input ng-model="user.user.username" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">密码</label>
+                    <input ng-model="user.user.password" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">角色</label>
+                    <select ng-model="user.user.role" class="form-control">
+                        <option value="student">学生</option>
+                        <option value="teacher">教师</option>
+                        <option value="admin">管理员</option>
+                    </select>
+                </div>
+                <div class=" pull-right">
+                    <div class="btn-group" role="group">
+                        <button ng-click="user.save(user.user._id)" class="btn btn-info">保存</button>
+                        <button ng-click="user.cancel()" class="btn btn-default">取消</button>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label">学号</label>
-                        <input ng-model="user.user.username" class="form-control"/>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">密码</label>
-                        <input ng-model="user.user.password" class="form-control"/>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">角色</label>
-                        <select ng-model="user.user.role" class="form-control">
-                            <option value="student">学生</option>
-                            <option value="teacher">教师</option>
-                            <option value="admin">管理员</option>
-                        </select>
-                    </div>
-                    <div class=" pull-right">
-                        <div class="btn-group" role="group">
-                            <button ng-click="user.save(user.user._id)" class="btn btn-info">保存</button>
-                            <button ng-click="user.cancel()" class="btn btn-default">取消</button>
-                        </div>
-                    </div>
-                </form>
-                <alert class="alert" ng-if="user.error" type="danger">出现错误</alert>
-            </div>
+                </div>
+            </form>
+            <alert class="alert" ng-if="user.error" type="danger">出现错误</alert>
         </div>
     </div>
+</div>
 </div>

@@ -36,6 +36,7 @@ function signService($http, $q, $window) {
             console.log('service\n' + password);
             $http.post('/signin', {username: username, password: password}).success(function (result) {
                 service.signed = true;
+                console.log(result.value);
                 $window.localStorage.setItem('localUser', JSON.stringify(result.value));
                 $window.localStorage.setItem('signed', true);
                 service.name = JSON.parse($window.localStorage.getItem('localUser')).username;
