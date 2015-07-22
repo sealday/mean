@@ -59,7 +59,7 @@
                 <label class="control-label">密码</label>
                 <input ng-model="re.password" type="password" class="form-control">
             </div>
-            <alert class="alert" ng-if="re.error" type="danger">该用户名为空或已被占用</alert>
+            <alert class="alert" ng-if="re.error" type="danger" close="re.error=!re.error">该用户名为空或已被占用</alert>
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" ng-click="re.register()">注册</button>
@@ -82,7 +82,7 @@
                 <label class="control-label">密码</label>
                 <input ng-model="si.password" type="password" class="form-control">
             </div>
-            <alert class="alert" ng-if="si.error" type="danger">用户名或者密码错误</alert>
+            <alert class="alert" ng-if="si.error" type="danger" close="si.error=!si.error">用户名或者密码错误</alert>
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" ng-click="si.signin()">登录</button>

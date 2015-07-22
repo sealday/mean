@@ -92,7 +92,7 @@ router.post('/signin', function (req, res, next) {
                 }
             },
             function (err, result) {
-                if (!err) {
+                if (!err && (result.value != null)) {
                     console.log('sign in success');
                     callback(result);
                 }
@@ -242,12 +242,15 @@ router.get('/api/users/:id', function (req, res, next) {
 router.post('/api/users', function (req, res, next) {
     var insertOneUser = function (db, callback) {
         var users = db.collection('user');
+        var sha1sum = crypto.createHash('sha1');
+        sha1sum.update(req.body.username + req.body.password + new Date().getTime());
+        var accessToken = sha1sum.digest('hex');
         users.insertOne({
             name: req.body.name,
             username: req.body.username,
             password: req.body.password,
             role: req.body.role,
-            access_token: ''
+            access_token: accessToken
         }, function (err, result) {
             if (!err) {
                 console.log("insert success");

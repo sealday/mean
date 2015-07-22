@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </form>
-            <alert class="alert" ng-if="user.error" type="danger">出现错误</alert>
+            <alert class="alert" ng-if="user.error" type="danger" close="user.error=!user.error">出现错误</alert>
         </div>
     </div>
 </div>
