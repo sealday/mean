@@ -8,8 +8,37 @@
  * ...*/
 angular
     .module('mean')
-    .config(routerConfig);
+    .factory('authInterceptor', authInterceptor)
+    .config(routerConfig)
+    .config(config);
 
+
+function authInterceptor($window) {
+    return {
+        request: request
+    };
+
+    function request(config) {
+        console.log('config');
+        console.log(config);
+        if (JSON.parse($window.localStorage.getItem('localUser')) == null) {
+            config.headers["access_token"] = null;
+            config.headers["group"] = null;
+            config.headers["function"] = null;
+        }
+        else {
+            config.headers["access_token"] = JSON.parse($window.localStorage.getItem('localUser')).access_token;
+            config.headers["group"] = JSON.parse($window.localStorage.getItem('localUser')).group;
+            config.headers["function"] = JSON.parse($window.localStorage.getItem('localUser')).function;
+        }
+        return config;
+    }
+}
+
+function config($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptor');
+
+}
 
 function routerConfig($urlRouterProvider, $stateProvider) {
     $urlRouterProvider.otherwise("/");

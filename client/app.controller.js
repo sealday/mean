@@ -10,14 +10,20 @@ angular
 
 /* @ngInject */
 
-NavModalCtrl.$inject = ['$modal', '$log', 'signService'];
-function NavModalCtrl($modal, $log, signService) {
+NavModalCtrl.$inject = ['$modal', '$log', 'signService', '$window', '$state'];
+function NavModalCtrl($modal, $log, signService, $window, $state) {
     var vm = this;
     vm.error = false;
     vm.signService = signService;
     vm.Register = Register;
     vm.Signin = Signin;
     vm.signout = signout;
+    vm.goDetails = goDetails;
+
+    function goDetails() {
+        var id = JSON.parse($window.localStorage.getItem('localUser'))._id;
+        $state.go('user.details', {id: id});
+    }
 
     function signout() {
 
